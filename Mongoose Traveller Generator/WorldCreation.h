@@ -5,10 +5,10 @@
 
 namespace WorldCreation
 {
-    const class PlanetDescriptors
+
+    namespace PlanetTables
     {
-    public:
-        std::vector<int> size_as_km
+        const std::vector<int> size_as_km
         {
             800,
             1600,
@@ -22,7 +22,7 @@ namespace WorldCreation
             14400,
             16000
         };
-        std::vector<float> surface_gravity
+        const std::vector<float> surface_gravity
         {
             0.0,
             0.05,
@@ -102,7 +102,7 @@ namespace WorldCreation
             "Only a few small islands and archipelagos",
             "Almost entirely water"
         };
-        std::vector<std::array<long long int, 2>> population_range
+        const std::vector<std::array<long long int, 2>> population_range
         {
             {0,0},
             {1,99},
@@ -168,7 +168,7 @@ namespace WorldCreation
             "Ruling functions are performed by a select group of members of an organisation or class which enjoys the overwhelming confidence of the citizenry.",
             "Ruling functions are performed by a religious organisation without regard to the specific individual needs of the citizenry."
         };
-    };
+    }
 
     class Base
     {
@@ -346,6 +346,20 @@ namespace WorldCreation
             tradecodes.push_back("Ag");
         }
         return tradecodes;
+    }
+
+    std::ostream& operator<<(std::ostream& os, Planet& p)
+    {
+        os << "NAME: " << p.name() << '\n';
+        os << "SIZE: " << PlanetTables::size_as_km[p.size()] << "km\n";
+        os << "ATMOSPHERE: " << PlanetTables::atmosphere_description[p.atmosphere()] << " with " << PlanetTables::atmosphere_pressure_range[p.atmosphere()][0] << " pressure." << '\n';
+        os << "HYDROLOGY: " << PlanetTables::hydrographic_as_percent_range[p.hydrology()][0] * 100 << "% surface water. " << PlanetTables::hydrographic_description[p.hydrology()] << "." << '\n';
+        os << "POPULATION: " << PlanetTables::population_range[p.population()][0] << ". Distribution: " << PlanetTables::population_description[p.population()] << ".\n";
+        os << "GOVERNMENT: " << PlanetTables::government_title[p.government()] << ". " << PlanetTables::government_description[p.government()] << '\n';
+        os << "LAW LEVEL: " << p.law_level() << '\n';
+        os << "STARPORT: " << p.GetStarportRank() << '\n';
+        os << "TECH LEVEL: " << p.technology_level() << '\n';
+        return os;
     }
 
     class SystemHex
