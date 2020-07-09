@@ -21,6 +21,7 @@ void OutputHelpText()
         "-------------------------------------\n";
     std::cout << std::left << std::setw(command_col_width) << "command" << std::setw(effect_col_width) << "effect" << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'planet'" << std::setw(effect_col_width) << "randomly generate a planet." << std::endl;
+    std::cout << std::left << std::setw(command_col_width) << "'systemhex'" << std::setw(effect_col_width) << "randomly generate a systemhex." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'help'" << std::setw(effect_col_width) << "see this menu again." << std::endl;
 }
 
@@ -42,6 +43,11 @@ try
         else if (input_stream == "help")
         {
             OutputHelpText();
+        }
+        else if (input_stream == "systemhex")
+        {
+            WorldCreation::SystemHex sh = WorldCreation::SystemHex();
+            std::cout << sh;
         }
         else
         {

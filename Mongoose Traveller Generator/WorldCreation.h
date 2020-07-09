@@ -369,17 +369,53 @@ namespace WorldCreation
         bool has_world() { return _has_world; }
         bool has_gas_giant() { return _has_gas_giant; }
         std::string name() { return _name; }
-        WorldCreation::Planet planet() { return _planet; }
+        Planet planet() { return _planet; }
     private:
         bool _has_world;
         bool _has_gas_giant;
         std::string _name;
-        WorldCreation::Planet _planet;
+        Planet _planet;
     };
 
     SystemHex::SystemHex()
     {
+        _has_world =  3 < Tools::RollDice(1);
+        _has_gas_giant = 10 > Tools::RollDice(2);
+        if (_has_world)
+        {
+            // If the system has a world, the system is usually named after said world.
+            _planet = Planet();
+            _name = _planet.name();
+        }
+        else
+        {
+            _name = Tools::GenerateRandomAlphanum(6);
+        }
+            
+    }
 
+    std::ostream& operator<<(std::ostream& os, SystemHex& sh)
+    {
+        os << "NAME: " << sh.name() << "\n\n" << "*** PLANETS ***\n";
+        if (sh.has_world())
+        {
+            Planet p = sh.planet();
+            os << p << '\n';
+        }
+        else {
+            os << "NO PLANETARY BODIES.\n\n";
+        }
+
+        os << "** GAS GIANT **\n";
+
+        if (sh.has_gas_giant())
+        {
+            os << "STANDARD GAS GIANT DETECTED.\n";
+        }
+        else {
+            os << "NO GAS GIANTS DETECTED.\n";
+        }
+        return os;
     }
 
     class Subsector
