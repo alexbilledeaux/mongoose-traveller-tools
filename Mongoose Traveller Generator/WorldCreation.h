@@ -429,7 +429,14 @@ namespace WorldCreation
 
     Subsector::Subsector()
     {
-
+        // Loop through our 2D array and spawn a systemhex for each element
+        for (int i = 0; i < 8; ++i)
+        {
+            for (SystemHex sh : system_hexes[i])
+            {
+                sh = SystemHex();
+            }
+        }
     }
 
     class Sector

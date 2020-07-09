@@ -22,6 +22,8 @@ void OutputHelpText()
     std::cout << std::left << std::setw(command_col_width) << "command" << std::setw(effect_col_width) << "effect" << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'planet'" << std::setw(effect_col_width) << "randomly generate a planet." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'systemhex'" << std::setw(effect_col_width) << "randomly generate a systemhex." << std::endl;
+    std::cout << std::left << std::setw(command_col_width) << "'subsector'" << std::setw(effect_col_width) << "randomly generate a subsector." << std::endl;
+    std::cout << std::left << std::setw(command_col_width) << "'coordinates'" << std::setw(effect_col_width) << "Fetch a systemhex by its coordinates in the current subsector." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'help'" << std::setw(effect_col_width) << "see this menu again." << std::endl;
 }
 
@@ -31,13 +33,17 @@ try
     std::string input_stream;
     srand(std::time(0));
 
+    WorldCreation::Planet p = WorldCreation::Planet();
+    WorldCreation::SystemHex sh = WorldCreation::SystemHex();
+    WorldCreation::Subsector sb = WorldCreation::Subsector();
+
     OutputHelpText();
     std::cout << "\nCommand: ";
     while (std::cin >> input_stream)
     {
         if (input_stream == "planet")
         {
-            WorldCreation::Planet p = WorldCreation::Planet();
+            p = WorldCreation::Planet();
             std::cout << p;
         }
         else if (input_stream == "help")
@@ -46,8 +52,33 @@ try
         }
         else if (input_stream == "systemhex")
         {
-            WorldCreation::SystemHex sh = WorldCreation::SystemHex();
+            sh = WorldCreation::SystemHex();
             std::cout << sh;
+        }
+        else if (input_stream == "subsector")
+        {
+            sb = WorldCreation::Subsector();
+            std::cout << "New subsector generated!\n";
+        }
+        else if (input_stream == "coordinates")
+        {
+            int x;
+            int y;
+
+            std::cout << "What is the X coordinate?\n";
+            std::cin >> x;
+            std::cout << "What is the Y coordinate?\n";
+            std::cin >> y;
+
+            if (x <= 8 && x >= 1 && y >= 1 && y <= 10)
+            {
+                WorldCreation::SystemHex target = sb.GetHexByCoordinates(x - 1, y - 1);
+                std::cout << target;
+            }
+            else {
+                std::cout << "Invalid coordinates!\n";
+            }
+
         }
         else
         {
