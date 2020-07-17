@@ -8,6 +8,7 @@
 #include <array>
 #include "Tools.h"
 #include "WorldCreation.h"
+#include "IO.h"
 
 void OutputHelpText()
 {
@@ -23,7 +24,8 @@ void OutputHelpText()
     std::cout << std::left << std::setw(command_col_width) << "'planet'" << std::setw(effect_col_width) << "randomly generate a planet." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'systemhex'" << std::setw(effect_col_width) << "randomly generate a systemhex." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'subsector'" << std::setw(effect_col_width) << "randomly generate a subsector." << std::endl;
-    std::cout << std::left << std::setw(command_col_width) << "'coordinates'" << std::setw(effect_col_width) << "Fetch a systemhex by its coordinates in the current subsector." << std::endl;
+    std::cout << std::left << std::setw(command_col_width) << "'coordinates'" << std::setw(effect_col_width) << "fetch a systemhex by its coordinates in the current subsector." << std::endl;
+    std::cout << std::left << std::setw(command_col_width) << "'save'" << std::setw(effect_col_width) << "save the current subsector." << std::endl;
     std::cout << std::left << std::setw(command_col_width) << "'help'" << std::setw(effect_col_width) << "see this menu again." << std::endl;
 }
 
@@ -49,6 +51,10 @@ try
         else if (input_stream == "help")
         {
             OutputHelpText();
+        }
+        else if (input_stream == "save")
+        {
+            IO::SaveToFile(p);
         }
         else if (input_stream == "systemhex")
         {

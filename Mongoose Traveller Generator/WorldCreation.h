@@ -186,6 +186,7 @@ namespace WorldCreation
     public:
         Planet();
         Planet(std::string name);
+        Planet(std::string n, int s, int a, int h, int p, int g, int l, int sp, int tl);
         std::string name() { return _name; }
         int size() { return _size; }
         int atmosphere() { return _atmosphere; }
@@ -303,6 +304,19 @@ namespace WorldCreation
     Planet::Planet(std::string name)
     {
         _name = name;
+    }
+
+    Planet::Planet(std::string n, int s, int a, int h, int p, int g, int l, int sp, int tl)
+    {
+        _name = n;
+        _size = s;
+        _atmosphere = a;
+        _hydrology = h;
+        _population = p;
+        _government = g;
+        _law_level = l;
+        _starport = sp;
+        _technology_level = tl;
     }
 
     char Planet::GetStarportRank()
